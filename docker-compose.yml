@@ -1,0 +1,27 @@
+services:
+  main:
+    image: node:16
+    volumes:
+      - ./node_modules:/node_modules
+      - ./package.json:/package.json
+      - ./tsconfig.json:/tsconfig.json
+      - ./main.ts:/main.ts
+    ports:
+      - 3000:3000
+      - 9229:9229
+    command: yarn nodemon --inspect=0.0.0.0:9229 --signal SIGINT --nolazy main.ts
+
+
+  # No caso de criar um segundo container, lembrar de usar portas diferentes
+  # 
+  # app2:
+  #   image: node:16
+  #   volumes:
+  #     - ./node_modules:/node_modules
+  #     - ./package.json:/package.json
+  #     - ./tsconfig.json:/tsconfig.json
+  #     - ./app2.ts:/app2.ts
+  #   ports:
+  #     - 3001:3000
+  #     - 9230:9229
+  #   command: yarn nodemon --inspect=0.0.0.0:9229 --signal SIGINT --nolazy app2.ts
